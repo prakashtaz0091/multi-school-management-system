@@ -115,7 +115,7 @@
                             <!-- Dark Logo icon -->
                             <img src="{{ url('images/default-user.webp') }}" alt="changes" class="light-logo"
                                 width="25" />
-
+                            {{ Auth::user()->name }}
                         </b>
 
 
@@ -139,7 +139,10 @@
                     <ul class="navbar-nav float-start me-auto">
                         <li class="nav-item d-none d-lg-block">
                             <a class="nav-link sidebartoggler waves-effect waves-light" href="javascript:void(0)"
-                                data-sidebartype="mini-sidebar"> School Name English Boarding School </a>
+                                data-sidebartype="mini-sidebar">
+                                {{ $school->name }}
+
+                            </a>
                         </li>
                         <!-- ============================================================== -->
                         <!-- create new -->
@@ -355,16 +358,11 @@
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav" class="pt-4">
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href=""
-                                aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span
-                                    class="hide-menu">Dashboard</span></a>
-                        </li>
-                        {{-- <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="{{ route('users.index') }}" aria-expanded="false"><i
-                                    class="mdi mdi-chart-bar"></i><span class="hide-menu">Manage
-                                    Users</span></a>
-                        </li> --}}
+                                href="{{ route('school_admin.dashboard') }}" aria-expanded="false"><i
+                                    class="mdi mdi-view-dashboard"></i><span class="hide-menu">Dashboard</span></a>
+                        </li>
+
 
                         <li class="sidebar-item">
                             <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)"
@@ -373,18 +371,21 @@
                                 </span></a>
                             <ul aria-expanded="false" class="collapse first-level">
                                 <li class="sidebar-item">
-                                    <a href="" class="sidebar-link"><i class="mdi mdi-note-outline"></i><span
-                                            class="hide-menu"> Manage Staffs
+                                    <a href="{{ route('school_admin.staffs.index') }}" class="sidebar-link"><i
+                                            class="mdi mdi-note-outline"></i><span class="hide-menu"> Manage
+                                            Staffs
                                         </span></a>
                                 </li>
                                 <li class="sidebar-item">
                                     <a href="" class="sidebar-link"><i class="mdi mdi-note-plus"></i><span
-                                            class="hide-menu"> Manage Students
+                                            class="hide-menu"> Manage
+                                            Students
                                         </span></a>
                                 </li>
                                 <li class="sidebar-item">
                                     <a href="" class="sidebar-link"><i class="mdi mdi-note-plus"></i><span
-                                            class="hide-menu"> Manage Parents
+                                            class="hide-menu"> Manage
+                                            Parents
                                         </span></a>
                                 </li>
                             </ul>

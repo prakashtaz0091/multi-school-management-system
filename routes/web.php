@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\SchoolAdminController;
+use App\Http\Controllers\StaffController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,9 +24,8 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::group(['prefix' => 'school-admin', 'middleware' => ['auth', 'isSchoolAdmin']], function () {
 
-    Route::get('/dashboard', function () {
-        return view('layout');
-    });
+    Route::get('/dashboard', [SchoolAdminController::class, 'dashboard'])->name('school_admin.dashboard');
+    Route::resource('/staffs', StaffController::class)->names('school_admin.staffs');
 });
 
 
