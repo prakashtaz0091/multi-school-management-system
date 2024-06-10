@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\School;
+use App\Models\Staff;
+use App\Models\User;
+use App\Rules\NcellNTCNumberCheck;
 
 class StaffController extends Controller
 {
@@ -15,7 +18,7 @@ class StaffController extends Controller
     {
         $auth_school_id = Auth::user()->school_id;
 
-        $staffs = School::find($auth_school_id)->users->where('role', 'teacher');
+        $staffs = School::find($auth_school_id)->users->where('role', 'staff');
 
 
 
@@ -27,7 +30,7 @@ class StaffController extends Controller
      */
     public function create()
     {
-        //
+        return view('school_admin.staff_create');
     }
 
     /**
@@ -35,7 +38,41 @@ class StaffController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'full_name' => 'required|min:2',
+            'address' => 'required|min:3',
+            'dob' => 'required',
+            'email' => 'required|unique:users|email',
+            'contact_number' => ['required', 'numeric', new \App\Rules\NcellNTCNumberCheck],
+            'gender' => 'required',
+            'salary' => 'required|numeric',
+            'staff_type' => 'required',
+        ]);
+
+        // dd(request()->all());
+        $user = User::create([
+            'name' => $request->full_name,
+            'email' => $request->email,
+            'password' => bcrypt("default"),
+            'dob' => $request->dob,
+            'address' => $request->address,
+            'phone' => $request->contact_number,
+            'gender' => $request->gender,
+            'role' => 'staff',
+            'school_id' => Auth::user()->school_id,
+            // 'image' => 'default.png',
+        ]);
+
+        $staff = Staff::create(
+            [
+                'user_id' => $user->id,
+                'salary' => $request->salary,
+                'staff_type' => $request->staff_type,
+            ]
+        );
+
+
+        return redirect()->route('school_admin.staffs.index')->with('success', 'Staff created successfully!');
     }
 
     /**
@@ -43,7 +80,9 @@ class StaffController extends Controller
      */
     public function show(string $id)
     {
-        //
+
+
+        return view('school_admin.staff_detail');
     }
 
     /**
