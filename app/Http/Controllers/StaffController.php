@@ -78,11 +78,12 @@ class StaffController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $user_id)
     {
 
+        $user = User::with('staff')->find($user_id);
 
-        return view('school_admin.staff_detail');
+        return view('school_admin.staff_detail', compact('user'));
     }
 
     /**

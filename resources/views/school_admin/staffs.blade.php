@@ -58,7 +58,7 @@
                                 </td>
                                 <td>{{ $staff->name }}</td>
                                 <td>
-                                    Teacher
+                                    {{ $staff->role }}
 
                                 </td>
                                 <td>{{ $staff->address }}</td>

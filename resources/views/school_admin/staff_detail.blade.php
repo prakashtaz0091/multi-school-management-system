@@ -1,7 +1,7 @@
-@extends('layout.layout')
+@extends('layout')
 
 @push('page-title')
-    {{ $staff->user->name }}
+    {{ $user->name }}
 @endpush
 
 
@@ -21,7 +21,7 @@
             {{ session('success') }}
         </div>
     @endif
-    <a href="{{ route('staffs.index') }}" class="btn btn-primary">Back</a>
+    <a href="{{ route('school_admin.staffs.index') }}" class="btn btn-primary">Back</a>
 @endsection
 
 
@@ -36,25 +36,25 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="d-flex flex-column align-items-center text-center">
-                                            <img src="@if ($staff->user->profile_pic != null && $staff->user->profile_pic != '') {{ asset('storage/' . $staff->user->profile_pic) }} @else https://bootdey.com/img/Content/avatar/avatar7.png @endif"
-                                                alt="Admin" class="rounded-circle" width="150" />
+                                            {{-- <img src="@if ($staff->user->profile_pic != null && $staff->user->profile_pic != '') {{ asset('storage/' . $staff->user->profile_pic) }} @else https://bootdey.com/img/Content/avatar/avatar7.png @endif"
+                                                alt="Admin" class="rounded-circle" width="150" /> --}}
                                             <div class="mt-3">
-                                                <h4> {{ $staff->user->name }} | {{ $staff->user->gender }}
+                                                <h4> {{ $user->name }} | {{ $user->gender }}
                                                 </h4>
                                                 <p class="text-secondary mb-1">
-                                                    @if ($staff->is_teacher)
-                                                        {{-- check if teacher is class teacher --}}
-                                                        Class Teacher : class 9
+                                                    @if ($user->role == 'staff')
+                                                        {{-- {{ $user->staff->staff_type }} --}}
                                                     @endif
                                                 </p>
                                                 <p class="text-muted font-size-sm">
-                                                    {{ $staff->user->address }}
+                                                    {{ $user->address }}
 
                                                 </p>
                                                 <div class="d-flex gap-2 justify-content-center">
                                                     <a href="" class="btn btn-success" data-bs-toggle="modal"
                                                         data-bs-target="#exampleModal">Edit</a>
-                                                    <form action="{{ route('staffs.destroy', $staff->id) }}" method="post">
+                                                    <form action="{{ route('school_admin.staffs.destroy', $user->id) }}"
+                                                        method="post">
                                                         @csrf
                                                         @method('delete')
                                                         <button class="btn btn-danger">Delete</button>
@@ -77,7 +77,7 @@
                                                 <h6 class="mb-0">Full Name</h6>
                                             </div>
                                             <div class="col-sm-9 text-secondary">
-                                                {{ $staff->user->name }}
+                                                {{ $user->name }}
 
                                             </div>
                                         </div>
@@ -86,7 +86,7 @@
                                             <div class="col-sm-3">
                                                 <h6 class="mb-0">Email</h6>
                                             </div>
-                                            <div class="col-sm-9 text-secondary"> {{ $staff->user->email }}
+                                            <div class="col-sm-9 text-secondary"> {{ $user->email }}
                                             </div>
                                         </div>
                                         <hr />
@@ -95,7 +95,7 @@
                                                 <h6 class="mb-0">Phone</h6>
                                             </div>
                                             <div class="col-sm-9 text-secondary">
-                                                {{ $staff->user->contact }}
+                                                {{ $user->phone }}
 
                                             </div>
                                         </div>
@@ -106,7 +106,7 @@
                                                 <h6 class="mb-0">Address</h6>
                                             </div>
                                             <div class="col-sm-9 text-secondary">
-                                                {{ $staff->user->address }}
+                                                {{ $user->address }}
 
                                             </div>
                                         </div>
@@ -117,7 +117,10 @@
                                                 <h6 class="mb-0">Salary</h6>
                                             </div>
                                             <div class="col-sm-9 text-secondary">
-                                                {{ $staff->salary }}
+
+                                                @if ($user->role == 'staff')
+                                                    {{-- {{ $user->staff->salary }} --}}
+                                                @endif
 
                                             </div>
                                         </div>
@@ -138,7 +141,7 @@
         </div>
     </div>
 
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    {{-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -233,5 +236,5 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 @endsection
