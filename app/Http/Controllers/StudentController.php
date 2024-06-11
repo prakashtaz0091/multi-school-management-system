@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\School;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class StudentController extends Controller
 {
@@ -11,7 +13,12 @@ class StudentController extends Controller
      */
     public function index()
     {
-        return view('school_admin.students');
+
+        $school_id = Auth::user()->school_id;
+        $school = School::find($school_id);
+        $students = $school->users()->where('role', 'student')->simplePaginate(5);
+
+        return view('school_admin.students', compact('students'));
     }
 
     /**
@@ -19,7 +26,7 @@ class StudentController extends Controller
      */
     public function create()
     {
-        //
+        return view('school_admin.student_create');
     }
 
     /**

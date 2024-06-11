@@ -91,6 +91,7 @@
 
                 </table>
             </div>
+            {{ $staffs->links() }}
         </div>
     </div>
 @endsection

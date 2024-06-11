@@ -18,10 +18,12 @@ class StaffController extends Controller
     public function index()
     {
         $auth_school_id = Auth::user()->school_id;
+        $school = School::find($auth_school_id);
 
-        $staffs = School::find($auth_school_id)->users->where('role', 'staff');
 
-
+        // $staffs = School::find($auth_school_id)->users->where('role', 'staff')->simplePaginate(10);
+        // $staffs = Staff::where('school_id', $auth_school_id)->simplePaginate(10);
+        $staffs = $school->users()->where('role', 'staff')->simplePaginate(5);
 
         return view('school_admin.staffs', compact('staffs'));
     }
