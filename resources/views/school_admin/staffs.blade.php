@@ -17,6 +17,13 @@
         </div>
     @endif
 
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+
+
     <a href="{{ route('school_admin.staffs.create') }}" class="btn btn-primary">Add Staff</a>
 @endsection
 
@@ -31,7 +38,7 @@
                             <th>SN</th>
                             <th>Profile</th>
                             <th>Name</th>
-                            <th>Role</th>
+                            <th>Staff Role</th>
                             <th>Address</th>
                             <th>Contact</th>
                             <th>Email</th>
@@ -51,14 +58,14 @@
                                 <td>
                                     <div class="user-avatar">
                                         <a href="https://twitter.com/twcloudchen" class="circle">
-                                            {{-- <img src="@if ($staff->profile_pic != null && $staff->profile_pic != '') {{ asset('storage/' . $staff->profile_pic) }} @else https://bootdey.com/img/Content/avatar/avatar7.png @endif"
-                                                alt="Admin" class="rounded-circle" width="40" height="40" /> --}}
+                                            <img src="@if ($staff->image != null) {{ asset('storage/' . $staff->image) }} @else https://bootdey.com/img/Content/avatar/avatar7.png @endif"
+                                                alt="Admin" class="rounded-circle" width="40" height="40" />
                                         </a>
                                     </div>
                                 </td>
                                 <td>{{ $staff->name }}</td>
                                 <td>
-                                    {{ $staff->role }}
+                                    {{ $staff->staff->staff_type }}
 
                                 </td>
                                 <td>{{ $staff->address }}</td>
@@ -81,18 +88,7 @@
 
 
                     </tbody>
-                    <tfoot>
-                        <tr>
-                            <th>SN</th>
-                            <th>Profile</th>
-                            <th>Name</th>
-                            <th>Address</th>
-                            <th>Contact</th>
-                            <th>Email</th>
 
-                            <th>Actions </th>
-                        </tr>
-                    </tfoot>
                 </table>
             </div>
         </div>

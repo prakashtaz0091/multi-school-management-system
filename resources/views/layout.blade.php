@@ -431,7 +431,7 @@
                         <h4 class="page-title">
                             @stack('page-title')
                         </h4>
-                        <div class="ms-auto text-end">
+                        <div class="ms-auto text-end d-flex align-items-center gap-2">
                             @yield('add-btn')
                         </div>
                     </div>

@@ -47,6 +47,7 @@ class StaffController extends Controller
             'gender' => 'required',
             'salary' => 'required|numeric',
             'staff_type' => 'required',
+            'profile_pic' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp',
         ]);
 
         // dd(request()->all());
@@ -62,6 +63,12 @@ class StaffController extends Controller
             'school_id' => Auth::user()->school_id,
             // 'image' => 'default.png',
         ]);
+
+        if ($request->has('profile_pic')) {
+            // dd($request->profile_pic);
+            $user->update(['image' => $request->profile_pic->store('profile_pics', 'public')]);
+        }
+
 
         $staff = Staff::create(
             [
@@ -105,8 +112,11 @@ class StaffController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $user_id)
     {
-        //
+        $user = User::with('staff')->findOrFail($user_id);
+        $user->delete();
+
+        return redirect()->route('school_admin.staffs.index')->with('success', 'Staff deleted successfully!');
     }
 }

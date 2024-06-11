@@ -36,14 +36,15 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="d-flex flex-column align-items-center text-center">
-                                            {{-- <img src="@if ($staff->user->profile_pic != null && $staff->user->profile_pic != '') {{ asset('storage/' . $staff->user->profile_pic) }} @else https://bootdey.com/img/Content/avatar/avatar7.png @endif"
-                                                alt="Admin" class="rounded-circle" width="150" /> --}}
+                                            {{-- {{ $user->image }} --}}
+                                            <img src="@if ($user->image != null) {{ asset('storage/' . $user->image) }} @else https://bootdey.com/img/Content/avatar/avatar7.png @endif"
+                                                alt="Admin" class="rounded-circle" width="150" />
                                             <div class="mt-3">
                                                 <h4> {{ $user->name }} | {{ $user->gender }}
                                                 </h4>
                                                 <p class="text-secondary mb-1">
                                                     @if ($user->role == 'staff')
-                                                        {{-- {{ $user->staff->staff_type }} --}}
+                                                        {{ $user->staff->staff_type }}
                                                     @endif
                                                 </p>
                                                 <p class="text-muted font-size-sm">
@@ -119,7 +120,7 @@
                                             <div class="col-sm-9 text-secondary">
 
                                                 @if ($user->role == 'staff')
-                                                    {{-- {{ $user->staff->salary }} --}}
+                                                    {{ $user->staff->salary }}
                                                 @endif
 
                                             </div>
@@ -224,10 +225,10 @@
                         </div>
 
                         <div class="input-group mb-3">
-                            <label class="input-group-text" for="profile_pic">Upload</label>
-                            <input type="file" class="form-control" id="profile_pic" name="profile_pic" />
+                            <label class="input-group-text" for="image">Upload</label>
+                            <input type="file" class="form-control" id="image" name="image" />
                             <p class="text-danger">
-                                {{ $errors->first('profile_pic') }}
+                                {{ $errors->first('image') }}
                             </p>
                         </div>
 
