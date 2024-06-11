@@ -372,13 +372,13 @@
                             <ul aria-expanded="false" class="collapse first-level">
                                 <li class="sidebar-item">
                                     <a href="{{ route('school_admin.staffs.index') }}" class="sidebar-link"><i
-                                            class="mdi mdi-note-outline"></i><span class="hide-menu"> Manage
+                                            class="mdi mdi-note-plus"></i><span class="hide-menu"> Manage
                                             Staffs
                                         </span></a>
                                 </li>
                                 <li class="sidebar-item">
-                                    <a href="" class="sidebar-link"><i class="mdi mdi-note-plus"></i><span
-                                            class="hide-menu"> Manage
+                                    <a href="{{ route('school_admin.students.index') }}" class="sidebar-link"><i
+                                            class="mdi mdi-note-plus"></i><span class="hide-menu"> Manage
                                             Students
                                         </span></a>
                                 </li>
