@@ -52,8 +52,8 @@
 
                                                 </p>
                                                 <div class="d-flex gap-2 justify-content-center">
-                                                    <a href="" class="btn btn-success" data-bs-toggle="modal"
-                                                        data-bs-target="#exampleModal">Edit</a>
+                                                    <a href="{{ route('school_admin.staffs.edit', $user->id) }}"
+                                                        class="btn btn-success">Edit</a>
                                                     <form action="{{ route('school_admin.staffs.destroy', $user->id) }}"
                                                         method="post">
                                                         @csrf
