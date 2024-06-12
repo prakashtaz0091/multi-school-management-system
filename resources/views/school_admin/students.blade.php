@@ -45,11 +45,11 @@
                                         </a>
                                     </div>
                                 </td>
-                                <td>{{ $student->name }}</td>
+                                <td>{{ $student->user->name }}</td>
 
-                                <td>{{ $student->address }}</td>
-                                <td>{{ $student->phone }}</td>
-                                <td>{{ $student->email }}</td>
+                                <td>{{ $student->user->address }}</td>
+                                <td>{{ $student->user->phone }}</td>
+                                <td>{{ $student->user->email }}</td>
 
 
 

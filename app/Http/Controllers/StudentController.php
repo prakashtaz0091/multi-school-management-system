@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Guardian;
 use App\Models\School;
+use App\Models\Student;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,10 +17,9 @@ class StudentController extends Controller
     public function index()
     {
 
-        $school_id = Auth::user()->school_id;
-        $school = School::find($school_id);
-        $students = $school->users()->where('role', 'student')->simplePaginate(5);
 
+        $students = Student::with('user')->where('school_id', Auth::user()->school_id)->simplePaginate(5);
+        // dd($students);
         return view('school_admin.students', compact('students'));
     }
 
@@ -29,7 +29,7 @@ class StudentController extends Controller
     public function create()
     {
 
-        // $school_id = Auth::user()->school_id;
+        $school_id = Auth::user()->school_id;
         // $guardians = User::where('role', 'guardian')->where('school_id', $school_id)->get();
         // $classes = School::find($school_id)->classes()->get();
         $classes = Auth::user()->school->classes;
