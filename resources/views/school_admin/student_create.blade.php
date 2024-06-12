@@ -5,6 +5,19 @@
     Admission Form
 @endpush
 
+
+@section('add-btn')
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+@endsection
+
 @section('content')
     @error('email')
         {{ $message }}
@@ -20,7 +33,7 @@
             </h4>
         </div>
         <div class="modal-body">
-            <form id="formForAll" action="{{ route('school_admin.staffs.store') }}" method="post"
+            <form id="formForAll" action="{{ route('school_admin.students.store') }}" method="post"
                 enctype="multipart/form-data">
                 @csrf
                 <div class="form-floating mb-3">
@@ -81,6 +94,8 @@
                                 <option value="others" @if (old('gender') == 'others') selected @endif>Others</option>
                             </select>
                             <label for="gender">Gender</label>
+                            <p class="text-danger">{{ $errors->first('gender') }}</p>
+
                         </div>
                     </div>
                     <div class="col">
@@ -88,6 +103,8 @@
 
                             <input class="form-control" type="file" id="profile_pic" name="profile_pic">
                             <label for="profile_pic">Profile Picture</label>
+                            <p class="text-danger">{{ $errors->first('profile_pic') }}</p>
+
                         </div>
                     </div>
                 </div>
@@ -106,15 +123,13 @@
                                 <select class="form-select" id="student_class" name="student_class"
                                     aria-label="Floating label select example" required>
                                     <option selected>Choose class...</option>
-                                    <option value="class_1">Class 1</option>
-                                    <option value="class_1">Class 2</option>
-                                    <option value="class_1">Class 3</option>
-                                    <option value="class_1">Class 4</option>
-                                    <option value="class_1">Class 5</option>
-                                    <option value="class_1">Class 6</option>
-                                    <option value="class_1">Class 7</option>
+                                    @foreach ($classes as $class)
+                                        <option value="{{ $class->id }}">{{ $class->name }}</option>
+                                    @endforeach
                                 </select>
                                 <label for="student_class">Class</label>
+                                <p class="text-danger">{{ $errors->first('student_class') }}</p>
+
                             </div>
                         </div>
                     </div>
@@ -124,14 +139,16 @@
                             <h4>Guardian Information</h4>
 
                             <div class="form-floating mb-3">
-                                <select class="form-select" id="student_class" name="student_class"
+                                <select class="form-select" id="guardians" name="guardians[]"
                                     aria-label="label select example" required multiple>
-                                    <option value="class_1">Ram bahadur</option>
-                                    <option value="class_1">Sita Maaya</option>
-                                    <option value="class_1">shyam poudel</option>
-                                    <option value="class_1">Rita Thakur</option>
+
+                                    @foreach ($guardians as $guardian)
+                                        <option value="{{ $guardian->id }}">{{ $guardian->name }}</option>
+                                    @endforeach
 
                                 </select>
+                                <p class="text-danger">{{ $errors->first('guardians') }}</p>
+
                             </div>
                         </div>
                     </div>

@@ -42,4 +42,10 @@ class School extends Model
     {
         return $this->hasMany(Guardian::class);
     }
+
+
+    public function staffs(): HasMany
+    {
+        return $this->hasMany(Staff::class);
+    }
 }

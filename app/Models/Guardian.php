@@ -21,7 +21,7 @@ class Guardian extends Model
 
     public function students(): BelongsToMany
     {
-        return $this->belongsToMany(Student::class);
+        return $this->belongsToMany(Student::class, 'guardian_student', 'guardian_id', 'student_id');
     }
 
     public function schools(): BelongsToMany

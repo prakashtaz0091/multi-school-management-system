@@ -63,21 +63,21 @@
                                         </a>
                                     </div>
                                 </td>
-                                <td>{{ $staff->name }}</td>
+                                <td>{{ $staff->user->name }}</td>
                                 <td>
-                                    {{ $staff->staff->staff_type }}
+                                    {{ $staff->staff_type }}
 
                                 </td>
-                                <td>{{ $staff->address }}</td>
-                                <td>{{ $staff->phone }}</td>
-                                <td>{{ $staff->email }}</td>
+                                <td>{{ $staff->user->address }}</td>
+                                <td>{{ $staff->user->phone }}</td>
+                                <td>{{ $staff->user->email }}</td>
 
 
 
                                 <td>
 
                                     <a class="btn btn-sm btn-primary"
-                                        href="{{ route('school_admin.staffs.show', $staff->id) }}">Details</a>
+                                        href="{{ route('school_admin.staffs.show', $staff->user->id) }}">Details</a>
 
                                 </td>
 

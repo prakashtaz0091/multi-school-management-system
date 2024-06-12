@@ -11,6 +11,7 @@ class Classes extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['class_name', 'school_id'];
 
     public function school(): BelongsTo
     {
