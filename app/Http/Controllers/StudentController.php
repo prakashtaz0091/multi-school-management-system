@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Classes;
 use App\Models\Guardian;
 use App\Models\School;
 use App\Models\Student;
@@ -28,17 +29,13 @@ class StudentController extends Controller
      */
     public function create()
     {
-
-        $school_id = Auth::user()->school_id;
-        // $guardians = User::where('role', 'guardian')->where('school_id', $school_id)->get();
-        // $classes = School::find($school_id)->classes()->get();
         $classes = Auth::user()->school->classes;
-        $guardians = Auth::user()->school->guardians;
-
-        // dd($guardians);
+        $guardians = Guardian::with('user')->where('school_id', Auth::user()->school_id)->get();
 
 
-        return view('school_admin.student_create', compact('guardians', 'classes'));
+
+
+        return view('school_admin.student_create', compact('classes', 'guardians'));
     }
 
     /**

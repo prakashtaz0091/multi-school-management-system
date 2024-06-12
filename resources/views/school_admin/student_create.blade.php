@@ -143,7 +143,7 @@
                                     aria-label="label select example" required multiple>
 
                                     @foreach ($guardians as $guardian)
-                                        <option value="{{ $guardian->id }}">{{ $guardian->name }}</option>
+                                        <option value="{{ $guardian->id }}">{{ $guardian->user->name }}</option>
                                     @endforeach
 
                                 </select>
