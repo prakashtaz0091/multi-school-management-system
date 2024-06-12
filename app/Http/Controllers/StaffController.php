@@ -17,13 +17,6 @@ class StaffController extends Controller
      */
     public function index()
     {
-        // $auth_school_id = Auth::user()->school_id;
-        // $school = School::find($auth_school_id);
-
-
-        // $staffs = School::find($auth_school_id)->users->where('role', 'staff')->simplePaginate(10);
-        // $staffs = Staff::where('school_id', $auth_school_id)->simplePaginate(10);
-        // $staffs = $school->users()->where('role', 'staff')->simplePaginate(5);
 
         $staffs = Staff::with('user')->where('school_id', Auth::user()->school_id)->simplePaginate(5);
 
@@ -56,6 +49,7 @@ class StaffController extends Controller
         ]);
 
         // dd(request()->all());
+        $auth_school_id = Auth::user()->school_id;
         $user = User::create([
             'name' => $request->full_name,
             'email' => $request->email,
@@ -65,7 +59,7 @@ class StaffController extends Controller
             'phone' => $request->contact_number,
             'gender' => $request->gender,
             'role' => 'staff',
-            'school_id' => Auth::user()->school_id,
+            'school_id' => $auth_school_id,
             // 'image' => 'default.png',
         ]);
 
@@ -80,6 +74,7 @@ class StaffController extends Controller
                 'user_id' => $user->id,
                 'salary' => $request->salary,
                 'staff_type' => $request->staff_type,
+                'school_id' => $auth_school_id
             ]
         );
 

@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('guardian_students', function (Blueprint $table) {
             $table->id();
 
-            $table->unsignedBigInteger('guardian_id');
-            $table->unsignedBigInteger('student_id');
+            $table->unsignedBigInteger('guardian_id')->nullable();
+            $table->unsignedBigInteger('student_id')->nullable();
 
             $table->timestamps();
         });

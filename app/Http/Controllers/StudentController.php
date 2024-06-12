@@ -19,7 +19,7 @@ class StudentController extends Controller
     {
 
 
-        $students = Student::with('user')->where('school_id', Auth::user()->school_id)->simplePaginate(5);
+        $students = Student::with('user')->where('school_id', Auth::user()->school_id)->latest('created_at')->simplePaginate(5);
         // dd($students);
         return view('school_admin.students', compact('students'));
     }
@@ -71,18 +71,15 @@ class StudentController extends Controller
 
         ]);
 
+        $student = $user->student()->create([
+            'class_id' => $request->student_class,
+            'school_id' => Auth::user()->school_id,
+        ]);
 
-        // foreach ($request->guardians as $guardian_id) {
-        //     $student = $user->student()->create([
-        //         'class_id' => $request->student_class,
-        //         'school_id' => Auth::user()->school_id,
-        //     ]);
-        //     // dd($guardian_id);
-        //     $guardian = Guardian::where('user_id', $guardian_id)->first();
-        //     if ($guardian) {
-        //         $guardian->students()->attach($student);
-        //     }
-        // }
+        $student->guardians()->sync($request->guardians);
+
+
+
 
         return redirect()->route('school_admin.students.index')->with('success', 'Student admitted successfully!');
     }
@@ -92,7 +89,9 @@ class StudentController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $student = Student::with('user', 'classes', 'guardians')->find($id);
+        // dd($student);
+        return view('school_admin.student_detail', compact('student'));
     }
 
     /**
@@ -116,6 +115,13 @@ class StudentController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $student = Student::with('user')->find($id);
+        $student->delete();
+
+        if ($student->user) {
+            $student->user->delete();
+        }
+
+        return redirect()->route('school_admin.students.index')->with('success', 'Student deleted successfully!');
     }
 }
