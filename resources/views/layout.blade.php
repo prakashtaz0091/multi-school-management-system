@@ -463,8 +463,9 @@
             <footer class="footer text-center">
                 All Rights Reserved by Matin TechSoft. Designed and Developed by
                 <a target="_blank" href="https://prakashtajpuriya.com.np">Prakash</a>.
-                <a href="https://github.com/mamata-majhi">Mamata</a>.
-                <a href="https://github.com/karanthakur-77">Karan</a>.
+                <a target="_blank" href="https://github.com/mamata-majhi">Mamata</a>.
+                <a target="_blank" href="https://github.com/karanthakur-77">Karan</a>.
+                <a target="_blank" href="https://github.com/shibusharma1">Shibu</a>.
             </footer>
             <!-- ============================================================== -->
             <!-- End footer -->

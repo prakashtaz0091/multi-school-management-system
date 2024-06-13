@@ -58,7 +58,7 @@
                                 <td>
                                     <div class="user-avatar">
                                         <a href="https://twitter.com/twcloudchen" class="circle">
-                                            <img src="@if ($staff->image != null) {{ asset('storage/' . $staff->image) }} @else https://bootdey.com/img/Content/avatar/avatar7.png @endif"
+                                            <img src="@if ($staff->user->image != null) {{ asset('storage/' . $staff->user->image) }} @else https://bootdey.com/img/Content/avatar/avatar7.png @endif"
                                                 alt="Admin" class="rounded-circle" width="40" height="40" />
                                         </a>
                                     </div>

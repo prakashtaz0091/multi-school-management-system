@@ -9,6 +9,7 @@ use App\Models\Student;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class StudentController extends Controller
 {
@@ -70,6 +71,10 @@ class StudentController extends Controller
             // 'image' => 'default.png',
 
         ]);
+        if ($request->has('profile_pic')) {
+            // dd($request->profile_pic);
+            $user->update(['image' => $request->profile_pic->store('profile_pics', 'public')]);
+        }
 
         $student = $user->student()->create([
             'class_id' => $request->student_class,
@@ -99,7 +104,11 @@ class StudentController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $student = Student::with('user', 'classes', 'guardians')->find($id);
+        // dd($student->classes);
+        $classes = Classes::where('school_id', $student->school->id)->get();
+        $guardians = Guardian::where('school_id', $student->school->id)->get();
+        return view('school_admin.student_edit', compact('student', 'classes', 'guardians'));
     }
 
     /**
@@ -107,7 +116,49 @@ class StudentController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'full_name' => 'required|min:2',
+            'address' => 'required|min:3',
+            'dob' => 'required',
+            'contact_number' => ['required', 'numeric', new \App\Rules\NcellNTCNumberCheck],
+            'gender' => 'required',
+            'profile_pic' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp',
+            'student_class' => 'required',
+            'guardians' => 'required',
+        ]);
+
+        // dd(request()->all());
+        $user = User::findOrFail($id);
+
+        // Check if an image has been uploaded
+        if ($request->hasFile('profile_pic')) {
+            // Delete the old image if it exists
+            if ($user->image) {
+                Storage::disk('public')->delete($user->image);
+            }
+
+            // Store the new image
+            $imagePath = $request->file('profile_pic')->store('profile_pics', 'public');
+        }
+
+        $user->update([
+            'name' => $request->full_name,
+            'dob' => $request->dob,
+            'address' => $request->address,
+            'phone' => $request->contact_number,
+            'gender' => $request->gender,
+            'image' => $imagePath ?? $user->image, // Update image path if new image is uploaded
+
+        ]);
+
+
+        $student = Student::where('user_id', $id)->first();
+        $student->update([
+            'class_id' => $request->student_class,
+        ]);
+
+        $student->guardians()->sync($request->guardians);
+        return redirect()->route('school_admin.students.index')->with('success', 'Student updated successfully!');
     }
 
     /**

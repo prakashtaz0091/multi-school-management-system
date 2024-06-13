@@ -20,6 +20,7 @@ class StaffController extends Controller
 
         $staffs = Staff::with('user')->where('school_id', Auth::user()->school_id)->simplePaginate(5);
 
+        // dd($staffs[0]->user);
         return view('school_admin.staffs', compact('staffs'));
     }
 
