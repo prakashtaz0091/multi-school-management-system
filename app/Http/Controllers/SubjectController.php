@@ -98,6 +98,9 @@ class SubjectController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $subject = Subject::find($id);
+        $subject->delete();
+
+        return redirect()->route('school_admin.subjects.index')->with('success', "Subject {$subject->name} deleted successfully!");
     }
 }

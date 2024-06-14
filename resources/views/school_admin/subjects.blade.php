@@ -48,9 +48,16 @@
                                 <td>{{ $subject->full_marks }}</td>
                                 <td>{{ $subject->pass_marks }}</td>
 
-                                <td>
+                                <td class="d-flex gap-2">
                                     <div class="btn btn-sm btn-primary">Update</div>
-                                    <div class="btn btn-sm btn-danger">Delete</div>
+                                    <form action="{{ route('school_admin.subjects.destroy', $subject->id) }}"
+                                        method="POST">
+                                        @csrf
+                                        @method('delete')
+
+                                        <button class="btn btn-sm btn-danger">Delete
+                                        </button>
+                                    </form>
 
                                 </td>
 
