@@ -2,7 +2,7 @@
 
 
 @push('page-title')
-    Admission Form
+    Add Guardian
 @endpush
 
 
@@ -29,11 +29,11 @@
     <div class="container">
         <div class="modal-header">
             <h4 class="modal-title" id="staticBackdropLabel">
-                Registration Form
+                Guardian Form
             </h4>
         </div>
         <div class="modal-body">
-            <form id="formForAll" action="{{ route('school_admin.students.store') }}" method="post"
+            <form id="formForAll" action="{{ route('school_admin.guardians.store') }}" method="post"
                 enctype="multipart/form-data">
                 @csrf
                 <div class="form-floating mb-3">
@@ -88,7 +88,7 @@
                         <div class="form-floating mb-3">
                             <select class="form-select" id="gender" name="gender"
                                 aria-label="Floating label select example" required>
-                                <option selected>Choose your gender...</option>
+                                <option selected>Choose gender...</option>
                                 <option value="male" @if (old('gender') == 'male') selected @endif>Male</option>
                                 <option value="female" @if (old('gender') == 'female') selected @endif>Female</option>
                                 <option value="others" @if (old('gender') == 'others') selected @endif>Others</option>
@@ -112,65 +112,14 @@
 
 
 
-                <div class="row">
-                    <div class="col">
-
-                        <div>
-                            @if (isset($classes[0]))
-                                <!-- Content for Staff div -->
-                                <h4>Class Information</h4>
-
-                                <div class="form-floating mb-3">
-                                    <select class="form-select" id="student_class" name="student_class"
-                                        aria-label="Floating label select example" required>
-                                        <option selected>Choose class...</option>
-                                        @foreach ($classes as $class)
-                                            <option value="{{ $class->id }}">{{ $class->name }}</option>
-                                        @endforeach
-                                    </select>
-                                    <label for="student_class">Class</label>
-                                    <p class="text-danger">{{ $errors->first('student_class') }}</p>
-
-                                </div>
-                            @else
-                                <a href="" class="btn btn-primary">First Add Class</a>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div>
-                            @if (isset($guardians[0]))
-                                <!-- Content for Staff div -->
-                                <h4>Guardian Information</h4>
-
-                                <div class="form-floating mb-3">
-                                    <select class="form-select" id="guardians" name="guardians[]"
-                                        aria-label="label select example" required multiple>
-
-                                        @foreach ($guardians as $guardian)
-                                            <option value="{{ $guardian->id }}">{{ $guardian->user->name }}</option>
-                                        @endforeach
-
-                                    </select>
-                                    <p class="text-danger">{{ $errors->first('guardians') }}</p>
-
-                                </div>
-                            @else
-                                <a href="{{ route('school_admin.guardians.create') }}" class="btn btn-primary mb-3">First
-                                    Add Guardians</a>
-                            @endif
-
-                        </div>
-                    </div>
-                </div>
 
 
 
-                @if (isset($classes[0]) && isset($guardians[0]))
-                    <button type="submit" class="btn btn-primary float-start">
-                        Submit
-                    </button>
-                @endif
+
+
+                <button type="submit" class="btn btn-primary float-start">
+                    Submit
+                </button>
             </form>
         </div>
     </div>

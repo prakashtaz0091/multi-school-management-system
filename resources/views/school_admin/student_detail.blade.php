@@ -43,7 +43,8 @@
                                                 <h4> {{ $student->user->name }} | {{ $student->user->gender }}
                                                 </h4>
                                                 <p class="text-secondary mb-1">
-                                                    {{ $student->classes->name }}
+                                                    {{ $student->classes->name }} |
+                                                    {{ $student->classes->year == '' ? 'year N/A' : $student->classes->year }}
                                                 </p>
                                                 <p class="text-muted font-size-sm">
                                                     {{ $student->user->address }}
@@ -119,7 +120,9 @@
                                             <div class="col-sm-9 text-secondary">
                                                 @foreach ($student->guardians as $guardian)
                                                     <ul>
-                                                        <li>{{ $guardian->user->name }}</li>
+                                                        <a
+                                                            href="{{ route('school_admin.guardians.show', $guardian->user->id) }}">{{ $guardian->user->name }}</a>
+                                                        <br>
 
                                                     </ul>
                                                 @endforeach

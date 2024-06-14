@@ -1,9 +1,10 @@
 @extends('layout')
 
-
 @push('page-title')
-    Students
+    Guardians
 @endpush
+
+
 
 @section('add-btn')
     <!-- Button trigger modal -->
@@ -17,10 +18,15 @@
         </div>
     @endif
 
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
 
-    <a href="{{ route('school_admin.students.create') }}" class="btn btn-primary">Admit Student</a>
+
+    <a href="{{ route('school_admin.guardians.create') }}" class="btn btn-primary">Add Guardian</a>
 @endsection
-
 
 @section('content')
     <div class="card">
@@ -33,12 +39,11 @@
                             <th>SN</th>
                             <th>Profile</th>
                             <th>Name</th>
+                            <th>Role</th>
                             <th>Address</th>
                             <th>Contact</th>
                             <th>Email</th>
-                            {{-- @if ($page_name == 'Parents')
-                                <th>Profession</th>
-                            @endif --}}
+
 
                             <th>Actions </th>
 
@@ -46,43 +51,45 @@
                     </thead>
                     <tbody>
 
-                        @foreach ($students as $student)
+                        @foreach ($guardians as $guardian)
                             <tr>
                                 <td> {{ $loop->iteration }} </td>
                                 <td>
                                     <div class="user-avatar">
                                         <a href="https://twitter.com/twcloudchen" class="circle">
-                                            <img src="@if ($student->user->image != null) {{ asset('storage/' . $student->user->image) }} @else https://bootdey.com/img/Content/avatar/avatar7.png @endif"
+                                            <img src="@if ($guardian->image != null) {{ asset('storage/' . $guardian->image) }} @else https://bootdey.com/img/Content/avatar/avatar7.png @endif"
                                                 alt="Admin" class="rounded-circle" width="40" height="40" />
                                         </a>
                                     </div>
                                 </td>
-                                <td>{{ $student->user->name }}</td>
+                                <td>{{ $guardian->name }}</td>
+                                <td>
+                                    {{ $guardian->role }}
 
-                                <td>{{ $student->user->address }}</td>
-                                <td>{{ $student->user->phone }}</td>
-                                <td>{{ $student->user->email }}</td>
+                                </td>
+                                <td>{{ $guardian->address }}</td>
+                                <td>{{ $guardian->phone }}</td>
+                                <td>{{ $guardian->email }}</td>
 
 
 
                                 <td>
 
                                     <a class="btn btn-sm btn-primary"
-                                        href="{{ route('school_admin.students.show', $student->id) }}">Details</a>
+                                        href="{{ route('school_admin.guardians.show', $guardian->id) }}">Details</a>
 
                                 </td>
 
 
                             </tr>
                         @endforeach
-                        {{-- @endif --}}
 
 
                     </tbody>
 
                 </table>
             </div>
-            {{ $students->links() }}
+            {{-- {{ $staffs->links() }} --}}
         </div>
     </div>
 @endsection

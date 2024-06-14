@@ -34,7 +34,7 @@ class StudentController extends Controller
         $guardians = Guardian::with('user')->where('school_id', Auth::user()->school_id)->get();
 
 
-
+        // dd($classes);
 
         return view('school_admin.student_create', compact('classes', 'guardians'));
     }

@@ -383,22 +383,22 @@
                                         </span></a>
                                 </li>
                                 <li class="sidebar-item">
-                                    <a href="" class="sidebar-link"><i class="mdi mdi-note-plus"></i><span
-                                            class="hide-menu"> Manage
-                                            Parents
+                                    <a href="{{ route('school_admin.guardians.index') }}" class="sidebar-link"><i
+                                            class="mdi mdi-note-plus"></i><span class="hide-menu"> Manage
+                                            Guardians
                                         </span></a>
                                 </li>
                             </ul>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href=""
-                                aria-expanded="false"><i class="mdi mdi-chart-bubble"></i><span
-                                    class="hide-menu">Manage Class</span></a>
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                href="{{ route('school_admin.classes.index') }}" aria-expanded="false"><i
+                                    class="mdi mdi-chart-bubble"></i><span class="hide-menu">Manage Class</span></a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href=""
-                                aria-expanded="false"><i class="mdi mdi-border-inside"></i><span
-                                    class="hide-menu">Manage
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                href="{{ route('school_admin.subjects.index') }}" aria-expanded="false"><i
+                                    class="mdi mdi-border-inside"></i><span class="hide-menu">Manage
                                     Subjects</span></a>
                         </li>
                         <li class="sidebar-item">

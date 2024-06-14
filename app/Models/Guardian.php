@@ -12,6 +12,10 @@ class Guardian extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'user_id',
+        'school_id'
+    ];
 
     public function user(): BelongsTo
     {
@@ -21,7 +25,7 @@ class Guardian extends Model
 
     public function students(): BelongsToMany
     {
-        return $this->belongsToMany(Student::class, 'guardian_student', 'guardian_id', 'student_id');
+        return $this->belongsToMany(Student::class, 'guardian_students', 'guardian_id', 'student_id');
     }
 
     public function schools(): BelongsToMany
