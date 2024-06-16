@@ -82,7 +82,10 @@ class SubjectController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $subject = Subject::with('classes', 'teacher')->find($id);
+        $classes = Classes::where('school_id', $subject->school->id)->get();
+        $teachers = Staff::with('user')->where(['school_id' => $subject->school->id, 'staff_type' => 'teacher'])->get();
+        return view('school_admin.subject_edit', compact('subject', 'classes', 'teachers'));
     }
 
     /**
@@ -90,7 +93,29 @@ class SubjectController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'name' => 'required|min:2',
+            'subject_code' => 'required|min:2',
+            'full_marks' => 'required|numeric',
+            'pass_marks' => 'required|numeric',
+            'description' => 'nullable',
+            'class_id' => 'required|numeric',
+            'teacher_id' => 'required|numeric',
+        ]);
+        // dd(request()->all());
+
+        $subject = Subject::find($id);
+        $subject->update([
+            'name' => $request->name,
+            'code' => $request->subject_code,
+            'description' => $request->description,
+            'full_marks' => $request->full_marks,
+            'pass_marks' => $request->pass_marks,
+            'class_id' => $request->class_id,
+            'teacher_id' => $request->teacher_id,
+        ]);
+
+        return redirect()->route('school_admin.subjects.index')->with('success', "Subject '{$subject->name}' updated successfully.");
     }
 
     /**

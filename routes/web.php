@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClassController;
+use App\Http\Controllers\ExamController;
 use App\Http\Controllers\GuardianController;
 use App\Http\Controllers\SchoolAdminController;
 use App\Http\Controllers\StaffController;
@@ -34,6 +35,10 @@ Route::group(['prefix' => 'school-admin', 'middleware' => ['auth', 'isSchoolAdmi
     Route::resource('/guardians', GuardianController::class)->names('school_admin.guardians');
     Route::resource('/classes', ClassController::class)->names('school_admin.classes');
     Route::resource('/subjects', SubjectController::class)->names('school_admin.subjects');
+    Route::resource('/exams', ExamController::class)->names('school_admin.exams');
+    Route::get('/class/get-subjects/{class_id}', [ExamController::class, 'getSubjectsForClass'])->name('school_admin.exams.getSubjectsForClass');
+    Route::get('/exams/add-subjects/{exam_id}', [ExamController::class, 'addSubjects'])->name('school_admin.exams.addSubjects');
+    Route::post('/exams/store-subjects-exam/{exam_id}', [ExamController::class, 'storeSubjects_Exam'])->name('school_admin.exams.storeSubjects_Exam');
 });
 
 

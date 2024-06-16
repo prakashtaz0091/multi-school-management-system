@@ -402,10 +402,10 @@
                                     Subjects</span></a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href=""
-                                aria-expanded="false"><i class="mdi mdi-border-inside"></i><span
-                                    class="hide-menu">Manage
-                                    Complaints</span></a>
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                href="{{ route('school_admin.exams.index') }}" aria-expanded="false"><i
+                                    class="mdi mdi-border-inside"></i><span class="hide-menu">Manage
+                                    Exams</span></a>
                         </li>
 
 

@@ -17,7 +17,7 @@ class NcellNTCNumberCheck implements Rule
     public function passes($attribute, $value)
     {
         // Define the regular expression pattern for Ncell and NTC contact numbers
-        $pattern = '/^(980\d{7}|981\d{7}|982\d{7}|984\d{7}|985\d{7}|986\d{7})$/';
+        $pattern = '/^(980\d{7}|981\d{7}|982\d{7}|984\d{7}|985\d{7}|986\d{7}|974\d{7})$/';
 
         // Check if the contact number matches the pattern
         return preg_match($pattern, $value);

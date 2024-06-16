@@ -49,7 +49,8 @@
                                 <td>{{ $subject->pass_marks }}</td>
 
                                 <td class="d-flex gap-2">
-                                    <div class="btn btn-sm btn-primary">Update</div>
+                                    <a href="{{ route('school_admin.subjects.edit', $subject->id) }}"
+                                        class="btn btn-sm btn-primary">Update</a>
                                     <form action="{{ route('school_admin.subjects.destroy', $subject->id) }}"
                                         method="POST">
                                         @csrf
