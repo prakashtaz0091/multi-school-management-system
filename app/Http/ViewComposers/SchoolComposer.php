@@ -10,7 +10,7 @@ class SchoolComposer
 {
     public function compose(View $view)
     {
-        if (Auth::check()) {
+        if (Auth::check() && Auth::user()->role == 'school_admin') {
             $school = Auth::user()->school;
             $view->with('school', $school);
         }

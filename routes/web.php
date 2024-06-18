@@ -47,6 +47,7 @@ Route::group(['prefix' => 'teacher', 'middleware' => ['auth', 'isTeacher']], fun
 
     Route::get('/', [TeacherPageController::class, 'homepage'])->name('teacher.homepage');
     Route::get('/attendance', [TeacherPageController::class, 'attendence_page'])->name('teacher.attendence_page');
+    Route::post('/attendance', [TeacherPageController::class, 'attendence_store'])->name('teacher.attendence_store');
 });
 
 

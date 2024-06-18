@@ -21,7 +21,7 @@ class Classes extends Model
 
     public function students(): HasMany
     {
-        return $this->hasMany(Student::class);
+        return $this->hasMany(Student::class, 'class_id', 'id');
     }
 
     public function subjects(): HasMany
@@ -29,8 +29,8 @@ class Classes extends Model
         return $this->hasMany(Subject::class, 'class_id', 'id');
     }
 
-    public function class_teacher(): HasOne
+    public function class_teacher(): BelongsTo
     {
-        return $this->hasOne(Staff::class, 'id', 'class_teacher_id');
+        return $this->belongsTo(Staff::class, 'class_teacher_id');
     }
 }
