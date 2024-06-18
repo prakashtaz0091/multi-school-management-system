@@ -8,6 +8,7 @@ use App\Http\Controllers\SchoolAdminController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SubjectController;
+use App\Http\Controllers\TeacherPageController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -42,11 +43,9 @@ Route::group(['prefix' => 'school-admin', 'middleware' => ['auth', 'isSchoolAdmi
 });
 
 
-Route::group(['prefix' => 'teacher', 'middleware' => ['auth']], function () {
+Route::group(['prefix' => 'teacher', 'middleware' => ['auth', 'isTeacher']], function () {
 
-    Route::get('/dashboard', function () {
-        echo "teacher dashboard";
-    });
+    Route::get('/', [TeacherPageController::class, 'homepage'])->name('teacher.homepage');
 });
 
 
