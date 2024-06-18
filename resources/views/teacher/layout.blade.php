@@ -84,7 +84,12 @@
                     </div>
                     <div>
                         <small>
-                            {{ $teacher->school->name }}
+                            {{ $teacher->school->name }},
+                        </small>
+                        <small>
+                            <small>
+                                joined since {{ $teacher->created_at->diffForHumans() }}
+                            </small>
                         </small>
                     </div>
                 </div>

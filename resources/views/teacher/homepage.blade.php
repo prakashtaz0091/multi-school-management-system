@@ -27,18 +27,18 @@
 
 
 @section('content')
-    <div class="container">
+    <div class="container d-md-flex align-items-center justify-content-center" style="height: 80vh">
         <div class="row">
             <div class="col-md-12 align-items-center">
                 <div class="card mt-4">
 
                     <div class="card-body">
                         <div class="row gutters-sm">
-                            <div class="col-md-4 mb-3 profile-card">
+                            <div class="col-md-4 mb-3 d-flex align-items-center profile-card">
                                 <div class="card">
                                     <div class="card-body">
-                                        <div class="d-flex flex-column align-items-center text-center">
-                                            {{-- {{ $teacher->image }} --}}
+                                        <div
+                                            class="d-flex flex-column align-items-center justify-content-center text-center">
                                             <img src="@if ($teacher->image != null) {{ asset('storage/' . $teacher->image) }} @else https://bootdey.com/img/Content/avatar/avatar7.png @endif"
                                                 alt="Admin" class="rounded-circle" width="150" />
                                             <div class="mt-3">
