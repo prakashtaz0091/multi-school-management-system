@@ -46,6 +46,7 @@ Route::group(['prefix' => 'school-admin', 'middleware' => ['auth', 'isSchoolAdmi
 Route::group(['prefix' => 'teacher', 'middleware' => ['auth', 'isTeacher']], function () {
 
     Route::get('/', [TeacherPageController::class, 'homepage'])->name('teacher.homepage');
+    Route::get('/attendance', [TeacherPageController::class, 'attendence_page'])->name('teacher.attendence_page');
 });
 
 

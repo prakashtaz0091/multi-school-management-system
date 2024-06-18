@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Classes;
+use App\Models\Staff;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -13,9 +14,9 @@ class ClassController extends Controller
      */
     public function index()
     {
-        $classes = Classes::where('school_id', Auth::user()->school_id)->orderByRaw("year DESC")->simplePaginate(7);
+        $classes = Classes::with('class_teacher')->where('school_id', Auth::user()->school_id)->orderByRaw("year DESC")->simplePaginate(7);
         // $classes = Classes::where('school_id', Auth::user()->school_id)->simplePaginate(7);
-
+        // dd($classes);
         return view('school_admin.classes', compact('classes'));
     }
 
@@ -24,7 +25,9 @@ class ClassController extends Controller
      */
     public function create()
     {
-        return view('school_admin.class_create');
+
+        $teachers = Staff::with('user')->where('school_id', Auth::user()->school_id)->get();
+        return view('school_admin.class_create', compact('teachers'));
     }
 
     /**
@@ -43,6 +46,11 @@ class ClassController extends Controller
                 }
             }],
             'year' => 'required|numeric',
+            'class_teacher_id' => ['required', 'unique:classes,class_teacher_id', function ($attribute, $value, $fail) {
+                if ($value == "not teacher") {
+                    $fail('Please select a teacher.');
+                }
+            }],
         ]);
 
 
@@ -53,6 +61,7 @@ class ClassController extends Controller
             'room_no' => $request->room_no,
             'school_id' => Auth::user()->school_id,
             'year' => $request->year,
+            'class_teacher_id' => $request->class_teacher_id
         ]);
 
         return redirect()->route('school_admin.classes.index')->with('success', "Class added successfully.");
@@ -72,7 +81,8 @@ class ClassController extends Controller
     public function edit(string $id)
     {
         $class = Classes::findOrFail($id);
-        return view('school_admin.class_edit', compact('class'));
+        $teachers = Staff::with('user')->where('school_id', Auth::user()->school_id)->get();
+        return view('school_admin.class_edit', compact('class', 'teachers'));
     }
 
     /**
@@ -92,12 +102,18 @@ class ClassController extends Controller
                 }
             }],
             'year' => 'required|numeric',
+            'class_teacher_id' => ['required', 'unique:classes,class_teacher_id', function ($attribute, $value, $fail) {
+                if ($value == "not teacher") {
+                    $fail('Please select a teacher.');
+                }
+            }],
         ]);
-
+        // dd($request->class_teacher_id);
         $class = Classes::findOrFail($id);
         $class->update([
             'room_no' => $request->room_no,
             'year' => $request->year,
+            'class_teacher_id' => $request->class_teacher_id
         ]);
 
         return redirect()->route('school_admin.classes.index')->with('success', "Class updated successfully");

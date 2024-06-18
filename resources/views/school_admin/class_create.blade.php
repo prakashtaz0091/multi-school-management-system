@@ -53,7 +53,21 @@
                     <label for="year">Class's Year in B.S. eg. 2080</label>
                     <p class="text-danger">{{ $errors->first('year') }}</p>
                 </div>
+                <div class="form-floating mb-3">
 
+                    <select class="form-select" name="class_teacher_id" aria-label="Default select example">
+                        <option value="not teacher" selected>Select Class Teacher</option>
+                        @foreach ($teachers as $teacher)
+                            <option value="{{ $teacher->id }}">{{ $teacher->user->name }}</option>
+                        @endforeach
+
+                    </select>
+                    <p class="text-danger">
+                        @error('class_teacher_id')
+                            {{ $message }}
+                        @enderror
+                    </p>
+                </div>
 
 
 

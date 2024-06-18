@@ -25,6 +25,9 @@
     </style>
 @endsection
 
+@section('title')
+    Teacher Profile
+@endsection
 
 @section('content')
     <div class="container d-md-flex align-items-center justify-content-center" style="height: 80vh">

@@ -32,6 +32,7 @@
 
                             <th>Year (Batch)</th>
                             <th>Name</th>
+                            <th>Class Teacher</th>
                             <th>Room No.</th>
                             <th> Students</th>
 
@@ -47,6 +48,7 @@
                                 <td> {{ $class->year == '' ? 'N/A' : $class->year }} </td>
 
                                 <td>{{ $class->name }}</td>
+                                <td>{{ $class->class_teacher == null ? 'N/A' : $class->class_teacher->user->name }}</td>
 
                                 <td>{{ $class->room_no }}</td>
                                 <td>count</td>

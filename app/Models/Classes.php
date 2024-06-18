@@ -6,12 +6,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Classes extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'room_no', 'school_id', 'year'];
+    protected $fillable = ['name', 'room_no', 'school_id', 'year', 'class_teacher_id'];
 
     public function school(): BelongsTo
     {
@@ -26,5 +27,10 @@ class Classes extends Model
     public function subjects(): HasMany
     {
         return $this->hasMany(Subject::class, 'class_id', 'id');
+    }
+
+    public function class_teacher(): HasOne
+    {
+        return $this->hasOne(Staff::class, 'id', 'class_teacher_id');
     }
 }
