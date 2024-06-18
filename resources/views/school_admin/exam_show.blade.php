@@ -21,42 +21,40 @@
 @endsection
 
 @section('content')
-    <!-- Modal -->
-    <div class="container">
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table id="zero_config" class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
 
-        <div class="modal-body">
-            <div class="accordion" id="exam_details">
 
-                @foreach ($exam->subjects as $subject)
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="{{ $subject->id }}">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapse{{ $subject->id }}" aria-expanded="false"
-                                aria-controls="collapse{{ $subject->id }}">
-                                {{ $subject->name }}
-                            </button>
-                        </h2>
-                        <div id="collapse{{ $subject->id }}" class="accordion-collapse collapse"
-                            aria-labelledby="{{ $subject->id }}" data-bs-parent="#exam_details">
-                            <div class="accordion-body">
-                                <strong>This is the second item's accordion body.</strong> It is hidden by default, until
-                                the
-                                collapse plugin adds the appropriate classes that we use to style each element. These
-                                classes
-                                control the overall appearance, as well as the showing and hiding via CSS transitions. You
-                                can
-                                modify any of this with custom CSS or overriding our default variables. It's also worth
-                                noting
-                                that just about any HTML can go within the <code>.accordion-body</code>, though the
-                                transition
-                                does limit overflow.
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
+                            <th>Subject</th>
+                            <th>Full Marks</th>
 
+                            <th>Pass Marks </th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach ($exam->subjects as $subject)
+                            <tr>
+
+                                <td> {{ $subject->name }} </td>
+                                <td> {{ $subject->full_marks }} </td>
+                                <td> {{ $subject->pass_marks }} </td>
+
+                            </tr>
+                        @endforeach
+
+
+
+
+                    </tbody>
+
+                </table>
             </div>
         </div>
-    </div>
     </div>
 @endsection
