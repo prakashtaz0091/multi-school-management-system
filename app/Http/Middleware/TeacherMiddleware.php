@@ -16,7 +16,7 @@ class TeacherMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (auth()->user()->role == 'teacher') {
+        if (auth()->user()->staff->staff_type == 'teacher') {
             return $next($request);
         }
 

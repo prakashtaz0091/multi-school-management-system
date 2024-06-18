@@ -43,7 +43,7 @@ class AuthController extends Controller
         $url = '';
 
         if (Auth::user()) {
-            if (Auth::user()->role == 'teacher') {
+            if (Auth::user()->staff->staff_type == 'teacher') {
                 //teacher
                 $url = '/teacher/dashboard';
             }

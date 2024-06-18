@@ -42,7 +42,7 @@ Route::group(['prefix' => 'school-admin', 'middleware' => ['auth', 'isSchoolAdmi
 });
 
 
-Route::group(['prefix' => 'teacher', 'middleware' => ['auth', 'isTeacher']], function () {
+Route::group(['prefix' => 'teacher', 'middleware' => ['auth']], function () {
 
     Route::get('/dashboard', function () {
         echo "teacher dashboard";
