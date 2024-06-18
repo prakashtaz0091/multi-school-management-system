@@ -34,7 +34,7 @@
 
                     <div class="card-body">
                         <div class="row gutters-sm">
-                            <div class="col-md-4 mb-3 d-flex align-items-center profile-card">
+                            <div class="col-md-4 px-md-3 mb-3 d-flex align-items-center profile-card">
                                 <div class="card">
                                     <div class="card-body">
                                         <div
@@ -52,7 +52,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-8">
+                            <div class="col-md-8 px-0 px-md-3">
                                 <div class="card mb-3  profile-desc">
                                     <div class="card-body">
 
