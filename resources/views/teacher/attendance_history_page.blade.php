@@ -59,12 +59,12 @@
                     @php
                         $date_obj = Carbon::parse($record_date);
                     @endphp
-                    <tr title="Click this to view details">
+                    <tr>
                         <td>{{ $date_obj->toFormattedDateString() }}
                         <td>{{ $record['present_count'] }}</td>
                         <td>{{ $record['absent_count'] }}</td>
                         <td>
-                            <a href="" class="btn btn-warning btn-sm">
+                            <a href="{{ route('teacher.editAttendance', $record_date) }}" class="btn btn-warning btn-sm">
                                 Edit
                             </a>
                         </td>

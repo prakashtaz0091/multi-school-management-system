@@ -205,4 +205,78 @@ class TeacherPageController extends Controller
 
         return view('teacher.attendance_history_page', compact('teacher', 'class_name', 'attendance_records'));
     }
+
+
+
+    public function editAttendance($record_date)
+    {
+
+        // dd($record_date);
+        $teacher = $this->getLoggedInTeacherInfo();
+
+        $class = Classes::where([
+            'school_id' => $teacher->school_id,
+            'class_teacher_id' => $teacher->staff->id
+        ])->first();
+
+        $attendance_records = Attendance::with('student')->where(
+            [
+                'school_id' => $teacher->school_id,
+                'class_id' => $class->id,
+            ]
+        )->where('created_at', 'LIKE', $record_date . '%')->get();
+        // dd($attendance_records[0]->created_at->format('Y-m-d'));
+        return view('teacher.attendance_edit_page', compact('teacher', 'class', 'attendance_records'));
+    }
+
+
+
+    public function attendence_update(Request $request)
+    {
+
+        dd($request->all());
+        // // dd($request->all());
+
+        // $school_id = Auth::user()->school_id;
+        // $class_id = $request->class_id;
+
+        // $student_ids = Student::where('class_id', $class_id)->pluck('id');
+
+        // if ($request->students) {
+
+        //     foreach ($student_ids as $student_id) {
+
+        //         if (in_array((string)$student_id, $request->students)) {
+        //             Attendance::create([
+        //                 'student_id' => $student_id,
+        //                 'school_id' => $school_id,
+        //                 'class_id' => $class_id,
+        //                 'status' => 'present',
+        //             ]);
+        //         } else {
+
+        //             Attendance::create([
+        //                 'student_id' => $student_id,
+        //                 'school_id' => $school_id,
+        //                 'class_id' => $class_id,
+        //                 'status' => 'absent',
+        //             ]);
+        //         }
+        //     }
+        // } else {
+        //     foreach ($student_ids as $student_id) {
+
+        //         Attendance::create([
+        //             'student_id' => $student_id,
+        //             'school_id' => $school_id,
+        //             'class_id' => $class_id,
+        //             'status' => 'absent',
+        //         ]);
+        //     }
+
+        //     return redirect()->route('teacher.homepage')->with('success', 'Attendence added successfully.');
+        // }
+
+        // return redirect()->route('teacher.homepage')->with('success', 'Attendence added successfully.');
+    }
 }

@@ -50,6 +50,8 @@ Route::group(['prefix' => 'teacher', 'middleware' => ['auth', 'isTeacher']], fun
     Route::post('/attendance', [TeacherPageController::class, 'attendence_store'])->name('teacher.attendence_store');
     Route::get('/attendance/history', [TeacherPageController::class, 'attendence_history'])->name('teacher.attendence_history');
     Route::get('/attendance/history/filter', [TeacherPageController::class, 'filterRecordsByDate'])->name('teacher.filterRecordsByDate');
+    Route::get('/attendance/edit/{record_date}', [TeacherPageController::class, 'editAttendance'])->name('teacher.editAttendance');
+    Route::post('/attendance/update/{record_date}', [TeacherPageController::class, 'attendence_update'])->name('teacher.attendence_update');
 });
 
 
