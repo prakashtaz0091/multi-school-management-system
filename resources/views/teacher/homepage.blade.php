@@ -112,6 +112,8 @@
 
                                         <div class="d-flex justify-content-between flex-wrap gap-2">
 
+                                            <a href="{{ route('teacher.attendence_history') }}"
+                                                class="btn btn-primary flex-grow-1">Attendance History</a>
                                             <a href="" class="btn btn-primary flex-grow-1">Salary History</a>
                                             <a href="" class="btn btn-primary flex-grow-1">Make Complaint</a>
                                             <a href="" class="btn btn-primary flex-grow-1">Remaining Salary</a>

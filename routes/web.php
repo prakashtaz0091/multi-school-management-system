@@ -48,6 +48,8 @@ Route::group(['prefix' => 'teacher', 'middleware' => ['auth', 'isTeacher']], fun
     Route::get('/', [TeacherPageController::class, 'homepage'])->name('teacher.homepage');
     Route::get('/attendance', [TeacherPageController::class, 'attendence_page'])->name('teacher.attendence_page');
     Route::post('/attendance', [TeacherPageController::class, 'attendence_store'])->name('teacher.attendence_store');
+    Route::get('/attendance/history', [TeacherPageController::class, 'attendence_history'])->name('teacher.attendence_history');
+    Route::get('/attendance/history/filter', [TeacherPageController::class, 'filterRecordsByDate'])->name('teacher.filterRecordsByDate');
 });
 
 

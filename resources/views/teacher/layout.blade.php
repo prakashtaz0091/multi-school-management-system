@@ -88,7 +88,7 @@
                         </small>
                         <small>
                             <small>
-                                joined since {{ $teacher->created_at->diffForHumans() }}
+                                joined - {{ $teacher->created_at->diffForHumans() }}
                             </small>
                         </small>
                     </div>
@@ -105,7 +105,7 @@
                         <a class="nav-link" href="{{ route('teacher.homepage') }}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('teacher.attendence_page') }}">Attendence</a>
+                        <a class="nav-link" href="{{ route('teacher.attendence_page') }}">Take Attendence</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Marks Entry</a>
