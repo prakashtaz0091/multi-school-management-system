@@ -236,52 +236,59 @@ class TeacherPageController extends Controller
 
 
 
-    public function attendence_update(Request $request)
+    public function attendence_update($record_date, Request $request)
     {
 
-        dd($request->all());
-        // // dd($request->all());
+        // dd($request->all());
+        // dd($record_date);
+        $teacher = $this->getLoggedInTeacherInfo();   //geting logged in teacher info
 
-        // $school_id = Auth::user()->school_id;
-        // $class_id = $request->class_id;
+        $class = Classes::where([   // getting logged in teacher 's class wehre he/she is class teacher
+            'school_id' => $teacher->school_id,
+            'class_teacher_id' => $teacher->staff->id
+        ])->first();
 
-        // $student_ids = Student::where('class_id', $class_id)->pluck('id');
+        $class_name = $class->name;
 
-        // if ($request->students) {
+        $attendance_records = Attendance::with('student')->where(  //getting all the attendance records related to this class's class teacher of requested date as record_date
+            [
+                'school_id' => $teacher->school_id,
+                'class_id' => $class->id,
+            ]
+        )->where('created_at', 'LIKE', $record_date . '%')->get();
 
-        //     foreach ($student_ids as $student_id) {
 
-        //         if (in_array((string)$student_id, $request->students)) {
-        //             Attendance::create([
-        //                 'student_id' => $student_id,
-        //                 'school_id' => $school_id,
-        //                 'class_id' => $class_id,
-        //                 'status' => 'present',
-        //             ]);
-        //         } else {
+        if (!$request->students) {   #if no students are in request->students, it means no one is present, so setting everyone related as absent
+            foreach ($attendance_records as $attendance_record) {
 
-        //             Attendance::create([
-        //                 'student_id' => $student_id,
-        //                 'school_id' => $school_id,
-        //                 'class_id' => $class_id,
-        //                 'status' => 'absent',
-        //             ]);
-        //         }
-        //     }
-        // } else {
-        //     foreach ($student_ids as $student_id) {
+                $attendance_record->update([
+                    'status' => 'absent',
+                ]);
+            }
+        } else {
+            foreach ($attendance_records as $attendance_record) {
+                if (in_array($attendance_record->student_id, $request->students)) { // $request->students contains the id of those students which are present
 
-        //         Attendance::create([
-        //             'student_id' => $student_id,
-        //             'school_id' => $school_id,
-        //             'class_id' => $class_id,
-        //             'status' => 'absent',
-        //         ]);
-        //     }
+                    $attendance_record->update([
+                        'status' => 'present',
+                    ]);
+                } else {  // if $request->students doesn't contains the student id then it is considered as absent
+                    $attendance_record->update([
+                        'status' => 'absent',
+                    ]);
+                }
+            }
+        }
 
-        //     return redirect()->route('teacher.homepage')->with('success', 'Attendence added successfully.');
-        // }
 
-        // return redirect()->route('teacher.homepage')->with('success', 'Attendence added successfully.');
+
+        $attendance_records = Attendance::with('student')->where(  //getting all the attendance records related to this class's class teacher of requested date as record_date
+            [
+                'school_id' => $teacher->school_id,
+                'class_id' => $class->id,
+            ]
+        )->where('created_at', 'LIKE', $record_date . '%')->get();
+
+        return redirect()->route('teacher.attendence_history')->with("Attendence records updated successfully.");
     }
 }

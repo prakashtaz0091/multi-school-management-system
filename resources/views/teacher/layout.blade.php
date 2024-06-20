@@ -98,7 +98,7 @@
                 aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse d-sm-none d-lg-flex justify-content-end " id="navbarNavDropdown">
+            <div class="collapse navbar-collapse  d-lg-flex justify-content-end " id="navbarNavDropdown">
                 <ul class="navbar-nav me-3">
 
                     <li class="nav-item">
