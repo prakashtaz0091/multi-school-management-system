@@ -30,14 +30,14 @@ class TeacherPageController extends Controller
 
     public function attendence_page()
     {
-        // dd(now());
-        if (Attendance::whereDate('created_at', now())->exists()) {
-            return redirect()->route('teacher.attendence_history')->with('warning', 'Attendence Already Taken For Today');
-        }
-
         $teacher = $this->getLoggedInTeacherInfo();
         // dd($teacher);
         $class = Classes::where(['school_id' => $teacher->school_id, 'class_teacher_id' => $teacher->staff->id])->first();
+        // dd(now());
+        if (Attendance::where('class_id', $class->id)->whereDate('created_at', now())->exists()) {
+            return redirect()->route('teacher.attendence_history')->with('warning', 'Attendence Already Taken For Today');
+        }
+
 
         $students = Student::with('user')->where('class_id', $class->id)->get();
         // dd($students);
@@ -102,11 +102,16 @@ class TeacherPageController extends Controller
     public function attendence_history()
     {
         $teacher = $this->getLoggedInTeacherInfo();
-        $class_name = Classes::where(['school_id' => $teacher->school_id, 'class_teacher_id' => $teacher->staff->id])->pluck('name')->first();
+        $class = Classes::where(['school_id' => $teacher->school_id, 'class_teacher_id' => $teacher->staff->id])->first(['id', 'name']);
         // dd($class);
+        $class_id = $class->id;
+        $class_name = $class->name;
 
 
-        $attendance_records = Attendance::with('student')->where('school_id', $teacher->school_id)
+        $attendance_records = Attendance::with('student')->where([
+            'school_id' => $teacher->school_id,
+            'class_id' => $class_id,
+        ])
             ->orderBy('created_at', 'desc')
             ->get()
             // ->groupBy('created_at');

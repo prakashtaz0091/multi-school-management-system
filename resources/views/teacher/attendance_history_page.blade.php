@@ -48,6 +48,7 @@
             <thead>
                 <tr>
                     <th scope="col">Date</th>
+                    <th scope="col">Total Students</th>
                     <th scope="col">Present</th>
                     <th scope="col">Absent</th>
                     <th scope="col">Actions</th>
@@ -61,6 +62,7 @@
                     @endphp
                     <tr>
                         <td>{{ $date_obj->toFormattedDateString() }}
+                        <td>{{ $record['present_count'] + $record['absent_count'] }}</td>
                         <td>{{ $record['present_count'] }}</td>
                         <td>{{ $record['absent_count'] }}</td>
                         <td>
