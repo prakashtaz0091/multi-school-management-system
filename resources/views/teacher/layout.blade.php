@@ -74,8 +74,9 @@
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
-                <img src="{{ asset('storage/' . $teacher->image) }}" alt="Logo"
-                    class="d-inline-block align-text-top">
+                <img src=" @if ($teacher->image != null) {{ asset('storage/' . $teacher->image) }}
+                @else  https://bootdey.com/img/Content/avatar/avatar7.png @endif "
+                    alt="Logo" class="d-inline-block align-text-top">
                 <div class='d-flex flex-column'>
                     <div>
                         <strong>

@@ -19,6 +19,13 @@
     <!-- Custom CSS -->
     <link href="{{ url('css/dashboard/style.min.css') }}" rel="stylesheet" />
 
+    {{-- google fonts  --}}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    {{-- google fonts  --}}
+
 
     {{-- mdi cdn  --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@latest/css/materialdesignicons.min.css">
@@ -31,6 +38,8 @@
     <![endif]-->
 
     @yield('head-links')
+
+    @yield('internal-css')
 
     <style>
         td {
@@ -406,6 +415,12 @@
                                 href="{{ route('school_admin.exams.index') }}" aria-expanded="false"><i
                                     class="mdi mdi-border-inside"></i><span class="hide-menu">Manage
                                     Exams</span></a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                href="{{ route('school_admin.exams.index') }}" aria-expanded="false"><i
+                                    class="mdi mdi-border-inside"></i><span class="hide-menu">View
+                                    Attendance</span></a>
                         </li>
 
 

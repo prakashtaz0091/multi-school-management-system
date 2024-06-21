@@ -10,7 +10,7 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\TeacherPageController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\AttendenceController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -40,6 +40,9 @@ Route::group(['prefix' => 'school-admin', 'middleware' => ['auth', 'isSchoolAdmi
     Route::get('/class/get-subjects/{class_id}', [ExamController::class, 'getSubjectsForClass'])->name('school_admin.exams.getSubjectsForClass');
     Route::get('/exams/add-subjects/{exam_id}', [ExamController::class, 'addSubjects'])->name('school_admin.exams.addSubjects');
     Route::post('/exams/store-subjects-exam/{exam_id}', [ExamController::class, 'storeSubjects_Exam'])->name('school_admin.exams.storeSubjects_Exam');
+
+
+    Route::get('/attendence', [AttendenceController::class, 'index'])->name('school_admin.view_attendence');
 });
 
 
