@@ -155,8 +155,10 @@ class TeacherPageController extends Controller
     {
 
         $teacher = $this->getLoggedInTeacherInfo();
-        $class_name = Classes::where(['school_id' => $teacher->school_id, 'class_teacher_id' => $teacher->staff->id])->pluck('name')->first();
-
+        // $class_name = Classes::where(['school_id' => $teacher->school_id, 'class_teacher_id' => $teacher->staff->id])->pluck('name')->first();
+        $class = Classes::where(['school_id' => $teacher->school_id, 'class_teacher_id' => $teacher->staff->id])->first(['id', 'name']);
+        $class_name = $class->name;
+        $class_id = $class->id;
         // Assuming you have two dates to filter by
         // Parse the start and end dates from the request input
         // dd($request->all());
@@ -177,7 +179,12 @@ class TeacherPageController extends Controller
         }
 
         $attendance_records = Attendance::with('student')
-            ->where('school_id', $teacher->school_id)
+            ->where(
+                [
+                    'school_id' => $teacher->school_id,
+                    'class_id' => $class_id,
+                ]
+            )
             ->whereBetween('created_at', [$startDate, $endDate])
             ->orderBy('created_at', 'desc')
             ->get()

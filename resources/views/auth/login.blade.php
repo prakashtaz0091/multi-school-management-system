@@ -25,6 +25,20 @@
 </head>
 
 <body class="bg-light">
+    @if (session()->has('error'))
+        <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+            <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                    <strong class="me-auto text-danger">Invalid Credentials</strong>
+                    <small>just now</small>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    {{ session('error') }}, {{ now()->toDayDateTimeString() }}
+                </div>
+            </div>
+        </div>
+    @endif
 
 
     <div class="container">

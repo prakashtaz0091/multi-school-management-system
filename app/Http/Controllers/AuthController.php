@@ -31,7 +31,7 @@ class AuthController extends Controller
         if (Auth::attempt($userCredential)) {
 
             $url = $this->redirectDash();
-            return redirect($url);
+            return redirect($url)->with('success', "Login successful.");
         } else {
             return redirect('/')->with('error', 'Username & Password is incorrect');
         }
