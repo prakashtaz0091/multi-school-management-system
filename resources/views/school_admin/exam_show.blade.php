@@ -2,7 +2,7 @@
 
 
 @push('page-title')
-    {{ $exam->name }}
+    {{ $examData['exam_name'] }}
 @endpush
 
 
@@ -30,6 +30,7 @@
 
 
                             <th>Subject</th>
+                            <th>Class</th>
                             <th>Full Marks</th>
 
                             <th>Pass Marks </th>
@@ -38,12 +39,13 @@
                     </thead>
                     <tbody>
 
-                        @foreach ($exam->subjects as $subject)
+                        @foreach ($examData['subjects'] as $subject)
                             <tr>
 
-                                <td> {{ $subject->name }} </td>
-                                <td> {{ $subject->full_marks }} </td>
-                                <td> {{ $subject->pass_marks }} </td>
+                                <td> {{ $subject['subject_name'] }} </td>
+                                <td> {{ $subject['class']['class_name'] }} </td>
+                                <td> {{ $subject['full_marks'] }} </td>
+                                <td> {{ $subject['pass_marks'] }} </td>
 
                             </tr>
                         @endforeach

@@ -60,9 +60,38 @@ class ExamController extends Controller
     public function show(string $id)
     {
         // dd($id);
-        $exam = Exam::with('subjects')->find($id);
-        // dd($exam);
-        return view('school_admin.exam_show', compact('exam'));
+        // $exam = Exam::with('subjects')->find($id);
+        // dd($exam->subjects->first()->class_id);
+
+        $exam = Exam::with(['subjects.classes'])
+            ->find($id);
+
+        if (!$exam) {
+            return response()->json(['message' => 'Exam not found'], 404);
+        }
+
+        $examData = [
+            'exam_id' => $exam->id,
+            'exam_name' => $exam->name, // Assuming 'name' is the column in the 'exam' table
+            'subjects' => $exam->subjects->map(function ($subject) {
+                return [
+                    'subject_id' => $subject->id,
+                    'subject_name' => $subject->name, // Assuming 'name' is the column in the 'subjects' table
+                    'class' => [
+                        'class_id' => $subject->classes->id,
+                        'class_name' => $subject->classes->name // Assuming 'name' is the column in the 'class_table' table
+                    ],
+                    'full_marks' => $subject->full_marks,
+                    'pass_marks' => $subject->pass_marks
+                ];
+            })
+        ];
+
+
+        // return response()->json($examData, 200);
+        // dd($examData['exam_name']);
+
+        return view('school_admin.exam_show', compact('examData'));
     }
 
     /**

@@ -56,8 +56,21 @@
                                             <ul>
 
                                                 @foreach ($date_groups as $attendence_record)
-                                                    <li>{{ $attendence_record->student->user->name }}</li>
+                                                    @if ($attendence_record->status == 'present')
+                                                        <li>{{ $attendence_record->student->user->name }}</li>
+                                                    @endif
                                                 @endforeach
+                                            </ul>
+                                            <hr>
+                                            <strong>Absent Students</strong>
+                                            <ul>
+
+                                                @foreach ($date_groups as $attendence_record)
+                                                    @if ($attendence_record->status == 'absent')
+                                                        <li>{{ $attendence_record->student->user->name }}</li>
+                                                    @endif
+                                                @endforeach
+
                                             </ul>
 
                                         </div>
